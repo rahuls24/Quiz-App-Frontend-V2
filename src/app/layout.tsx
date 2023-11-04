@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
+import ReduxProvider from '@/store/Provider';
 
 export const metadata: Metadata = {
   title: 'Quiz',
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ThemeRegistry>{children}</ThemeRegistry>
+        <ThemeRegistry>
+          <ReduxProvider> {children}</ReduxProvider>
+        </ThemeRegistry>
       </body>
     </html>
   );

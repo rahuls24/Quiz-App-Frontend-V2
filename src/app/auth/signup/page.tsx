@@ -20,10 +20,71 @@ import RadioGroup from '@mui/material/RadioGroup';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { useSigninUserByEmailMutation } from '../../../../services/auth';
 
 const authBgcImg =
   'https://images.pexels.com/photos/1939485/pexels-photo-1939485.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
+
+const validationSchema = yup.object({
+  name: yup.string().required('Name is required'),
+  email: yup
+    .string()
+    .email('Enter a valid email')
+    .required('Email is required'),
+  password: yup
+    .string()
+    .min(6, 'Password should be of minimum 6 characters length')
+    .required('Password is required'),
+  role: yup
+    .string()
+    .lowercase()
+    .matches(/^examiner$|^examinee$/, 'Role can be examiner or examinee')
+    .required('Role is required'),
+});
 function Signup() {
+  const [signupUser, { isError, isLoading, error }] =
+    useSigninUserByEmailMutation();
+  const [shouldShowPassword, setShowPassword] = useState(false);
+
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+      password: '',
+      role: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      let user = await signupUser(values);
+    },
+  });
+  const roleRadioBtns = (
+    <FormControl fullWidth>
+      <FormLabel id="role">Role</FormLabel>
+      <RadioGroup
+        aria-labelledby="role-radio-buttons-group"
+        name="role"
+        id="role"
+        value={formik.values.role}
+        row
+        sx={{ gap: 4 }}
+        onChange={formik.handleChange}
+      >
+        <FormControlLabel
+          value="examinee"
+          control={<Radio />}
+          label="Examinee"
+        />
+        <FormControlLabel
+          value="examiner"
+          control={<Radio />}
+          label="Examiner"
+        />
+      </RadioGroup>
+    </FormControl>
+  );
   return (
     <>
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -60,6 +121,87 @@ function Signup() {
             <Typography component="h1" variant="h5">
               Sign Up
             </Typography>
+            <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
+              <TextField
+                margin="normal"
+                fullWidth
+                id="name"
+                label="Name"
+                name="name"
+                autoComplete="name"
+                value={formik.values.name}
+                onChange={formik.handleChange}
+                error={formik.touched.name && Boolean(formik.errors.name)}
+                helperText={formik.touched.name && formik.errors.name}
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
+              />
+              <TextField
+                margin="normal"
+                fullWidth
+                name="password"
+                label="Password"
+                type={shouldShowPassword ? 'text' : 'password'}
+                id="password"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={() => setShowPassword(!shouldShowPassword)}
+                        onMouseDown={() => setShowPassword(!shouldShowPassword)}
+                        edge="end"
+                      >
+                        {shouldShowPassword ? (
+                          <Visibility />
+                        ) : (
+                          <VisibilityOff />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                autoComplete="current-password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.password && Boolean(formik.errors.password)
+                }
+                helperText={formik.touched.password && formik.errors.password}
+              />
+              {roleRadioBtns}
+
+              <LoadingButton
+                loading={isLoading}
+                type="submit"
+                loadingPosition="end"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                endIcon={<ArrowRightIcon />}
+              >
+                Sign Up
+              </LoadingButton>
+              <Grid container>
+                <Grid item xs></Grid>
+                <Grid item>
+                  <Link href="/auth/signin" variant="body2">
+                    {'Already have an account? Sign In'}
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box>
           </Box>
         </Grid>
       </Grid>
