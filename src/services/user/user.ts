@@ -1,3 +1,3 @@
-import { api } from "@/store/apiSetup";
+import { api } from '@/store/apiSetup';
 
-export 
+// export
