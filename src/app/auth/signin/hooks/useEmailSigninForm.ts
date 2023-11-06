@@ -44,9 +44,6 @@ export default function useEmailSigninForm() {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       let data = await signinUser(values);
-      console.log({
-        data,
-      });
       if (!('error' in data)) {
         compose(dispatch, setIsLoggedIn)(true);
         compose(dispatch, setAuthToken)(data.data);
