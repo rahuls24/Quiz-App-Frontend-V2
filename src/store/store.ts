@@ -6,7 +6,7 @@ import {
 } from '@reduxjs/toolkit';
 import globalSlice from '@/store/globalSlice';
 import { api } from './apiSetup';
-import { authenticationApi } from '../../services/auth';
+import { authenticationApi } from '../services/auth/auth';
 
 const rootReducer = combineReducers({
   [api.reducerPath]: api.reducer,

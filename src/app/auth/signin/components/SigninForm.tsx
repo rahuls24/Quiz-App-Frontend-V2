@@ -1,5 +1,5 @@
 'use client';
-import { setIsLoggedIn } from '@/store/globalSlice';
+import { setAuthToken, setIsLoggedIn } from '@/store/globalSlice';
 import { useAppDispatch } from '@/store/hooks';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import Visibility from '@mui/icons-material/Visibility';
@@ -18,7 +18,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import * as yup from 'yup';
-import { useSigninUserByEmailMutation } from '../../../../../services/auth';
+import { useSigninUserByEmailMutation } from '../../../../services/auth/auth';
+import { useTheme } from '@mui/material';
+import { toast } from 'react-toastify';
 
 const validationSchema = yup.object({
   email: yup
@@ -33,9 +35,9 @@ const validationSchema = yup.object({
 function SigninForm() {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const theme = useTheme();
   // Change Document Tile
-  const [signinUser, { isLoading, isError, error }] =
-    useSigninUserByEmailMutation();
+  const [signinUser, { isLoading }] = useSigninUserByEmailMutation();
   const [shouldShowPassword, setShowPassword] = useState(false);
   const formik = useFormik({
     initialValues: {
@@ -44,14 +46,25 @@ function SigninForm() {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      try {
-        let data = await signinUser(values);
-        if (!('error' in data)) {
-          compose(dispatch, setIsLoggedIn)(true);
-          router.push('/');
-        }
-      } catch (error) {
-        // TODO: Handle this
+      let data = await signinUser(values);
+      console.log({
+        data,
+      });
+      if (!('error' in data)) {
+        compose(dispatch, setIsLoggedIn)(true);
+        compose(dispatch, setAuthToken)(data.data);
+        router.push('/');
+      } else {
+        toast.error(String(data.error), {
+          position: 'bottom-left',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
       }
     },
   });
@@ -113,10 +126,20 @@ function SigninForm() {
       </LoadingButton>
       <Grid container>
         <Grid item xs>
-          <Link href={'#'}>Forgot password?</Link>
+          <Link
+            href={'#'}
+            style={{ color: theme.palette.primary.main ?? '#00BCD4' }}
+          >
+            Forgot password?
+          </Link>
         </Grid>
         <Grid item>
-          <Link href={'/auth/signup'}>{"Don't have an account? Sign Up"}</Link>
+          <Link
+            href={'/auth/signup'}
+            style={{ color: theme.palette.primary.main ?? '#00BCD4' }}
+          >
+            {"Don't have an account? Sign Up"}
+          </Link>
         </Grid>
       </Grid>
     </Box>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
 import ReduxProvider from '@/store/Provider';
+import ToastProvider from '@/components/react-toastify/ToastProvider';
 
 export const metadata: Metadata = {
   title: 'Quiz',
@@ -17,7 +18,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ThemeRegistry>
-          <ReduxProvider> {children}</ReduxProvider>
+          <ReduxProvider>
+            <ToastProvider>{children}</ToastProvider>
+          </ReduxProvider>
         </ThemeRegistry>
       </body>
     </html>

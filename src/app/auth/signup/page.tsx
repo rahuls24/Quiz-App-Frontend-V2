@@ -22,7 +22,7 @@ import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useSigninUserByEmailMutation } from '../../../../services/auth';
+import { useSigninUserByEmailMutation } from '../../../services/auth/auth';
 
 const authBgcImg =
   'https://images.pexels.com/photos/1939485/pexels-photo-1939485.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';

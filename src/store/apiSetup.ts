@@ -1,8 +1,19 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { RootState } from './store';
 
 // Create our baseQuery instance
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://a-quiz-app-for-anyone.onrender.com/api',
+  prepareHeaders: (headers, { getState }) => {
+    const token = (getState() as RootState).global.authToken;
+
+    // Please do not del this headers
+    if (token) {
+      headers.set('authorizationToken', String(token));
+    }
+
+    return headers;
+  },
 });
 
 /**

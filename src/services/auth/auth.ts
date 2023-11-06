@@ -1,4 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import {
+  normalizeSigninWithEmailErrorRes,
+  normalizeSigninWithEmailSuccessRes,
+} from './responseNormalizer';
 
 // Define our single API slice object
 export const authenticationApi = createApi({
@@ -23,6 +27,12 @@ export const authenticationApi = createApi({
         method: 'POST',
         body: userDetails,
       }),
+      transformResponse(baseQueryReturnValue) {
+        return normalizeSigninWithEmailSuccessRes(baseQueryReturnValue);
+      },
+      transformErrorResponse(baseQueryReturnValue) {
+        return normalizeSigninWithEmailErrorRes(baseQueryReturnValue.data);
+      },
     }),
   }),
 });
