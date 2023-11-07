@@ -150,7 +150,6 @@ function Signup() {
 								helperText={
 									formik.touched.name && formik.errors.name
 								}
-								autoFocus
 							/>
 							<TextField
 								margin='normal'
