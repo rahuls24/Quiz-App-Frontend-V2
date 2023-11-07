@@ -34,7 +34,7 @@ export const api = createApi({
   /**
    * A bare bones base query would just be `baseQuery: fetchBaseQuery({ baseUrl: '/' })`
    */
-  baseQuery: baseQuery,
+  baseQuery,
   /**
    * Tag types must be defined in the original API definition
    * for any tags that would be provided by injected endpoints
