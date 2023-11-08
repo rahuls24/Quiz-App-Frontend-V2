@@ -32,6 +32,17 @@ const validationSchema = yup.object({
 		.required('Password is required'),
 });
 
+/**
+ * useEmailSigninForm Hook
+ *
+ * This hook provides functionality for handling the email sign-in form. It manages form state,
+ * handles form submission, and dispatches actions based on form submission results. It also
+ * handles redirection upon successful sign-in and displays error messages in case of failures.
+ *
+ * @returns {Object} An object containing formik (form state and handlers) and isLoading (loading state).
+ * @property {Object} formik - The formik object containing form state and handlers.
+ * @property {boolean} isLoading - A boolean indicating if the form is currently in a loading state.
+ */
 export default function useEmailSigninForm() {
 	const router = useRouter();
 	const dispatch = useAppDispatch();

@@ -20,6 +20,19 @@ export type NextAppDirEmotionCacheProviderProps = {
 };
 
 // Adapted from https://github.com/garronej/tss-react/blob/main/src/next/appDir.tsx
+/**
+ * NextAppDirEmotionCacheProvider Component
+ *
+ * This component provides Emotion cache for Next.js applications. It allows for server-rendered
+ * Emotion styles to be collected and injected into the page. It takes the following props:
+ *
+ * @param {Object} props - The props object.
+ * @param {Object} props.options - Options passed to createCache() from '@emotion/cache'.
+ * @param {function} props.CacheProvider - By default, it uses CacheProvider from '@emotion/react'.
+ * @param {React.ReactNode} props.children - The child components to be rendered within the provider.
+ *
+ * @returns {JSX.Element} The rendered NextAppDirEmotionCacheProvider component.
+ */
 export default function NextAppDirEmotionCacheProvider(
 	props: NextAppDirEmotionCacheProviderProps
 ) {
@@ -40,6 +53,14 @@ export default function NextAppDirEmotionCacheProvider(
 			}
 			return prevInsert(...args);
 		};
+		/**
+		 * Flushes the inserted styles and returns them.
+		 *
+		 * This function clears the `inserted` array, returning its previous contents.
+		 * It is typically used in server-side rendering to collect and inject Emotion styles.
+		 *
+		 * @returns {Array} An array containing the styles that were previously inserted.
+		 */
 		const flush = () => {
 			const prevInserted = inserted;
 			inserted = [];

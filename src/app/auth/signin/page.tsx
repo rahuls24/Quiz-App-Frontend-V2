@@ -9,6 +9,15 @@ import LeftPoster from './components/LeftPoster';
 import SigninForm from './components/SigninForm';
 import SigninFormHeader from './components/SigninFormHeader';
 
+/**
+ * Signin Component
+ *
+ * This component renders a sign-in page layout. It includes a LeftPoster component, a paper container
+ * with a sign-in form, and a header for the form. The component uses Grid and Paper from Material-UI
+ * for layout and styling. It also sets the height of the main container to 100vh (viewport height).
+ *
+ * @returns {JSX.Element} The rendered Signin component.
+ */
 export default function Signin() {
 	return (
 		<Grid container component='main' sx={{ height: '100vh' }}>
