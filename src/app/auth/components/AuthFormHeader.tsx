@@ -9,14 +9,14 @@ import Typography from '@mui/material/Typography';
  *
  * @returns {JSX.Element} The rendered SigninFormHeader component.
  */
-function SigninFormHeader() {
+function AuthFormHeader({ title }: { title: string }) {
 	return (
 		<>
 			<Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
 				<LockOutlinedIcon />
 			</Avatar>
 			<Typography component='h1' variant='h5'>
-				Sign in
+				{title}
 			</Typography>
 		</>
 	);

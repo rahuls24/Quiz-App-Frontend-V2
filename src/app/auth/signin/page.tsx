@@ -5,10 +5,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import LeftPoster from './components/LeftPoster';
+import LeftPoster from '../components/LeftPoster';
 import SigninForm from './components/SigninForm';
-import SigninFormHeader from './components/SigninFormHeader';
-
+import AuthFormHeader from '../../components/AuthFormHeader';
 /**
  * Signin Component
  *
@@ -41,7 +40,7 @@ export default function Signin() {
 						alignItems: 'center',
 					}}
 				>
-					<SigninFormHeader />
+					<AuthFormHeader />
 					<SigninForm />
 				</Box>
 			</Grid>
