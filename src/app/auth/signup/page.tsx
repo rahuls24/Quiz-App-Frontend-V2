@@ -21,7 +21,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
-import yup from 'yup';
+import * as yup from 'yup';
 import { useSigninUserByEmailMutation } from '../../../services/auth/auth';
 
 const authBgcImg =

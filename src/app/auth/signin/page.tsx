@@ -1,13 +1,14 @@
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Avatar from '@mui/material/Avatar';
+// MUI Material
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
+
+// Local Components
+import AuthFormHeader from '../components/AuthFormHeader';
 import LeftPoster from '../components/LeftPoster';
 import SigninForm from './components/SigninForm';
-import AuthFormHeader from '../../components/AuthFormHeader';
+
 /**
  * Signin Component
  *
@@ -40,7 +41,7 @@ export default function Signin() {
 						alignItems: 'center',
 					}}
 				>
-					<AuthFormHeader />
+					<AuthFormHeader title='Signin' />
 					<SigninForm />
 				</Box>
 			</Grid>

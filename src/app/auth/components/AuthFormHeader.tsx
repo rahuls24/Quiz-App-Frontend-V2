@@ -22,4 +22,4 @@ function AuthFormHeader({ title }: { title: string }) {
 	);
 }
 
-export default SigninFormHeader;
+export default AuthFormHeader;

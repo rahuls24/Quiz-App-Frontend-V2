@@ -16,7 +16,7 @@ import { compose } from '@reduxjs/toolkit';
 import { useFormik } from 'formik';
 
 // Yup
-import yup from 'yup';
+import * as yup from 'yup';
 
 // React Toastify
 import { toast } from 'react-toastify';
