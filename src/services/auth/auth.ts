@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
-  normalizeSigninWithEmailErrorRes,
+  normalizeAuthWithEmailErrorRes,
   normalizeSigninWithEmailSuccessRes,
 } from './responseNormalizer';
 
@@ -20,6 +20,9 @@ export const authenticationApi = createApi({
         method: 'POST',
         body: userDetails,
       }),
+      transformErrorResponse(baseQueryReturnValue) {
+        return normalizeAuthWithEmailErrorRes(baseQueryReturnValue.data);
+      },
     }),
     signinUserByEmail: builder.mutation({
       query: (userDetails) => ({
@@ -31,7 +34,7 @@ export const authenticationApi = createApi({
         return normalizeSigninWithEmailSuccessRes(baseQueryReturnValue);
       },
       transformErrorResponse(baseQueryReturnValue) {
-        return normalizeSigninWithEmailErrorRes(baseQueryReturnValue.data);
+        return normalizeAuthWithEmailErrorRes(baseQueryReturnValue.data);
       },
     }),
   }),
