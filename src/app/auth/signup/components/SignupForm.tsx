@@ -23,12 +23,14 @@ import TextField from '@mui/material/TextField';
 import { useTheme } from '@mui/material';
 // Next.js
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 // React
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // Custom Hooks
 import useEmailSignupForm from '../hooks/useEmailSignupForm';
+import useIsLoggedIn from '@/hooks/useIsLoggedIn';
 
 /**
  * SignupForm Component
@@ -40,6 +42,8 @@ import useEmailSignupForm from '../hooks/useEmailSignupForm';
  * @returns {JSX.Element} The rendered SignupForm component.
  */
 function SignupForm() {
+	const isLoggedIn = useIsLoggedIn();
+	const router = useRouter();
 	const [shouldShowPassword, setShowPassword] = useState(false);
 	const theme = useTheme();
 	const { formik, isLoading } = useEmailSignupForm();
@@ -80,6 +84,12 @@ function SignupForm() {
 			</IconButton>
 		</InputAdornment>
 	);
+
+	useEffect(() => {
+		if (isLoggedIn) {
+			router.push('/');
+		}
+	}, [isLoggedIn, router]);
 	return (
 		<Box component='form' onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
 			<TextField

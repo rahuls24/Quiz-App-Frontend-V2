@@ -21,13 +21,6 @@ import SignupForm from './components/SignupForm';
  * @returns {JSX.Element} The rendered Signup component.
  */
 function Signup() {
-	const isLoggedIn = useIsLoggedIn();
-
-	useEffect(() => {
-		if (isLoggedIn) {
-			router.push('/');
-		}
-	}, [isLoggedIn, router]);
 	return (
 		<Grid container component='main' sx={{ height: '100vh' }}>
 			<CssBaseline />
