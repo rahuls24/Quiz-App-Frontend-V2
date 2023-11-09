@@ -10,6 +10,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { useAppSelector } from '@/store/hooks';
+import { selectUserDetails } from '@/store/globalSlice';
 
 const settings = ['Profile', 'Logout'];
 
@@ -23,7 +25,8 @@ const settings = ['Profile', 'Logout'];
  * @returns {JSX.Element} The rendered SettingMenu component.
  */
 function SettingMenu() {
-  const userFullName = 'Rahul Kumar';
+  const userFullName =
+    useAppSelector(selectUserDetails)?.name ?? 'Unknown User';
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   /**

@@ -4,7 +4,11 @@ import { useRouter } from 'next/navigation';
 
 // Redux
 import { useAppDispatch } from '@/store/hooks';
-import { setAuthToken, setIsLoggedIn } from '@/store/globalSlice';
+import {
+  setAuthToken,
+  setIsLoggedIn,
+  setUserDetails,
+} from '@/store/globalSlice';
 
 // Services
 import { useSigninUserByEmailMutation } from '@/services/auth/auth';
@@ -21,6 +25,7 @@ import * as yup from 'yup';
 
 // React Toastify
 import { toast } from 'react-toastify';
+import { getUserDetailsFromToken } from '@/utils/authRelated';
 
 const validationSchema = yup.object({
   email: yup
@@ -59,6 +64,7 @@ export default function useEmailSigninForm() {
       if (!('error' in data)) {
         compose(dispatch, setIsLoggedIn)(true);
         compose(dispatch, setAuthToken)(data.data);
+        compose(dispatch, setUserDetails, getUserDetailsFromToken)(data.data);
         router.push('/');
       } else {
         toast.error(String(data.error), {
