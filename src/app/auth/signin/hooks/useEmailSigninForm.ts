@@ -1,3 +1,4 @@
+'use client';
 // Next.js
 import { useRouter } from 'next/navigation';
 
@@ -22,14 +23,14 @@ import * as yup from 'yup';
 import { toast } from 'react-toastify';
 
 const validationSchema = yup.object({
-	email: yup
-		.string()
-		.email('Enter a valid email')
-		.required('Email is required'),
-	password: yup
-		.string()
-		.min(6, 'Password should be of minimum 6 characters length')
-		.required('Password is required'),
+  email: yup
+    .string()
+    .email('Enter a valid email')
+    .required('Email is required'),
+  password: yup
+    .string()
+    .min(6, 'Password should be of minimum 6 characters length')
+    .required('Password is required'),
 });
 
 /**
@@ -44,37 +45,37 @@ const validationSchema = yup.object({
  * @property {boolean} isLoading - A boolean indicating if the form is currently in a loading state.
  */
 export default function useEmailSigninForm() {
-	const router = useRouter();
-	const dispatch = useAppDispatch();
-	const [signinUser, { isLoading }] = useSigninUserByEmailMutation();
-	const formik = useFormik({
-		initialValues: {
-			email: '',
-			password: '',
-		},
-		validationSchema,
-		onSubmit: async (values) => {
-			const data = await signinUser(values);
-			if (!('error' in data)) {
-				compose(dispatch, setIsLoggedIn)(true);
-				compose(dispatch, setAuthToken)(data.data);
-				router.push('/');
-			} else {
-				toast.error(String(data.error), {
-					position: 'bottom-left',
-					autoClose: 5000,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-					theme: 'colored',
-				});
-			}
-		},
-	});
-	return {
-		formik,
-		isLoading,
-	};
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const [signinUser, { isLoading }] = useSigninUserByEmailMutation();
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      const data = await signinUser(values);
+      if (!('error' in data)) {
+        compose(dispatch, setIsLoggedIn)(true);
+        compose(dispatch, setAuthToken)(data.data);
+        router.push('/');
+      } else {
+        toast.error(String(data.error), {
+          position: 'bottom-left',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+      }
+    },
+  });
+  return {
+    formik,
+    isLoading,
+  };
 }
