@@ -21,17 +21,39 @@ import {
 
 const settings = ['Profile', 'Logout'];
 
+/**
+ * SettingMenu Component
+ *
+ * This component renders a menu for user settings. It includes an IconButton with an Avatar representing
+ * the user. Clicking on the IconButton opens a Menu with various setting options. The component also
+ * provides handlers for opening and closing the menu, as well as for handling specific settings.
+ *
+ * @returns {JSX.Element} The rendered SettingMenu component.
+ */PageIconMenu
 function SettingMenu() {
 	const userFullName = 'Rahul Kumar';
 	const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-	const handleOpenUserMenu = (event: ReactMouseEvent<HTMLElement>) => {
+	/**
+	 * handleOpenUserMenu Function
+	 *
+	 * Handles the opening of a user menu by setting the anchor element.
+	 *
+	 * @param {React.MouseEvent<HTMLElement>} event - The mouse event that triggered the opening of the menu.
+	 */
+	const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorElUser(event.currentTarget);
 	};
 
+	/**
+	 * handleCloseUserMenu Function
+	 *
+	 * Handles the closing of a user menu by resetting the anchor element.
+	 */
 	const handleCloseUserMenu = () => {
 		setAnchorElUser(null);
 	};
+
 	const settingsHandler = (settingKey: string) => {};
 	return (
 		<Box sx={{ flexGrow: 0 }}>

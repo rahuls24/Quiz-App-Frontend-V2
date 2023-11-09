@@ -10,9 +10,21 @@ import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { MouseEvent as ReactMouseEvent, useState } from 'react';
+
 type PageIconMenuTypes = {
 	userRole: UserRole;
 };
+/**
+ * PageIconMenu Component
+ *
+ * This component renders an icon-based menu for navigating pages. It includes an IconButton with a MenuIcon
+ * which, when clicked, opens a Menu with links to different pages. The component provides handlers for
+ * opening and closing the menu, as well as for handling menu item clicks. The menu items are determined
+ * based on the user's role.
+ *
+ * @param {PageIconMenuTypes} userRole - The role of the current user.
+ * @returns {JSX.Element} The rendered PageIconMenu component.
+ */
 function PageIconMenu({ userRole }: PageIconMenuTypes) {
 	const menuItems = getPagesCurrentUser();
 	const pathname = usePathname();
