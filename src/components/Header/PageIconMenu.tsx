@@ -62,9 +62,8 @@ function PageIconMenu({ userRole }: PageIconMenuTypes) {
         }}
       >
         {menuItems.map((menu) => (
-          <Link href={menu.path} style={{ textDecoration: 'none' }}>
+          <Link href={menu.path} style={{ textDecoration: 'none' }}  key={menu.path}>
             <MenuItem
-              key={menu.path}
               onClick={() => {
                 handleCloseNavMenu();
               }}

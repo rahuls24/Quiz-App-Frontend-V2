@@ -29,9 +29,8 @@ function PageMenu({ userRole }: PageMenuProps) {
       }}
     >
       {pages.map((page) => (
-        <Link href={page.path} style={{ textDecoration: 'none' }}>
+        <Link href={page.path} style={{ textDecoration: 'none' }} key={page.path}>
           <Button
-            key={page.path}
             sx={{
               m: 2,
               color: 'white',
