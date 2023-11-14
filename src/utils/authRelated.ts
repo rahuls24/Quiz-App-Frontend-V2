@@ -1,5 +1,5 @@
 import { pipe } from 'fp-ts/lib/function';
-import { fromNullable, map, getOrElse } from 'fp-ts/Option';
+import { fromNullable, map, getOrElse, fromPredicate } from 'fp-ts/Option';
 import { lookup } from 'fp-ts/Array';
 import { split } from 'fp-ts/string';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
@@ -85,6 +85,9 @@ export function getUserDetailsFromToken(bearerToken: string): UserDetails {
  * @returns {UserRole} The strongly-typed UserRole.
  */
 export function giveTypeToRawRole(role: string): UserRole {
-  if (role === 'examinee') return 'examinee';
-  return 'examiner';
+  return pipe(
+    role,
+    fromPredicate((r): r is UserRole => r === 'examiner' || r === 'examinee'),
+    getOrElse((): UserRole => 'examiner')
+  );
 }

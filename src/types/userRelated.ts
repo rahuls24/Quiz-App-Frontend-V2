@@ -5,3 +5,8 @@ export type UserDetails = {
   role: UserRole;
   isVerified: boolean;
 };
+
+export type Page = {
+  name: string;
+  path: string;
+};

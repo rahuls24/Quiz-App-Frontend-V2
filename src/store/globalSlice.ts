@@ -27,10 +27,13 @@ export const globalSlice = createSlice({
     setUserDetails: (state, action: PayloadAction<UserDetails | null>) => {
       state.userDetails = action.payload;
     },
+    handleLogout: () => {
+      return initialState;
+    },
   },
 });
 
-export const { setIsLoggedIn, setAuthToken, setUserDetails } =
+export const { setIsLoggedIn, setAuthToken, setUserDetails, handleLogout } =
   globalSlice.actions;
 
 export const selectIsLoggedIn = (state: RootState) => state.global.isLoggedIn;
