@@ -182,7 +182,7 @@ function stringAvatar(name: string) {
       sx: {
         bgcolor: stringToColor(name),
       },
-      children: `UU`,
+      children: 'UU',
     }))
   );
 }
